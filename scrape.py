@@ -45,7 +45,7 @@ def scrape(search_url, class_, csv_handler, headers, scrapers):
 
 def get_new_urls(search_url, class_):
     urls = []
-    page = 1
+    page = 0
     while True:
         r = urlopen(search_url + "?page=" + str(page))
         soup = BeautifulSoup(r, "lxml")
@@ -53,7 +53,7 @@ def get_new_urls(search_url, class_):
         done = True
         for div in soup.find_all("div",  typeof="sioc:Item foaf:Document", class_=class_):
             urls.append("https://gradaustralia.com.au" + div["about"])
-            new_results = False
+            done = False
             
         if done:
             return urls
